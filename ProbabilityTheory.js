@@ -134,9 +134,9 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\ominus$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\ominus\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * .05,
-        effectText: (level) => "+0.05 / level",
-        starValue: [1, 2, 4, 8, 16, 32],
+        effect: (level) => 1 + level * .5,
+        effectText: (level) => "+0.5 / level",
+        starValue: [10, 20, 40, 80, 160, 320],
         starCost: new LinearCost(0, 5),
     }, 
     {
@@ -145,7 +145,7 @@ var skillData = [
         maxLevel: 50,
         effect: (level) => BigNumber.TEN.pow(level),
         effectText: (level) => "$\\times$10  / level",
-        starValue: [1, 3, 7, 17, 37, 77],
+        starValue: [10, 30, 70, 170, 307, 707],
         starCost: new LinearCost(0, 5),
     }, 
     {
@@ -170,8 +170,8 @@ var skillData = [
         name: (amount) => "Raiser $b_1$",
         info: (amount) => Localization.getUpgradeIncCustomExpInfo("\\text{base } b_1", "{eff}"),
         maxLevel: 30,
-        effect: (level) => 1 + level * .05,
-        effectText: (level) => "+0.05 / level",
+        effect: (level) => 1 + level * .5,
+        effectText: (level) => "+0.5 / level",
         starValue: [1, 3, 9, 27, 81, 243],
         starCost: new LinearCost(5, 10),
     }, 
@@ -179,8 +179,8 @@ var skillData = [
         name: (amount) => "Raiser $b_2$",
         info: (amount) => Localization.getUpgradeIncCustomExpInfo("\\text{base } b_2", "{eff}"),
         maxLevel: 30,
-        effect: (level) => 1 + level * .05,
-        effectText: (level) => "+0.05 / level",
+        effect: (level) => 1 + level * .5,
+        effectText: (level) => "+0.5 / level",
         starValue: [1, 3, 9, 27, 81, 243],
         starCost: new LinearCost(5, 10),
     }, 
@@ -196,9 +196,9 @@ var skillData = [
     {
         name: (amount) => "\\textsf{EX} Tachyon Maker",
         info: (amount) => "Reduces $r_{5~8}$ decaying rate",
-        effect: (level) => 20 + level,
-        effectText: (level) => "Formula: $\\dot{r_i} = \\frac{-r_i}{20 + \\text{level}}$",
-        starValue: [1, 2, 3, 5, 7, 11],
+        effect: (level) => 80 + level,
+        effectText: (level) => "Formula: $\\dot{r_i} = \\frac{-r_i}{80 + \\text{level}}$",
+        starValue: [10, 20, 30, 50, 70, 110],
         starCost: new LinearCost(5, 1),
     }, 
     {
@@ -1297,7 +1297,7 @@ var tick = (elapsedTime, multiplier) => {
         prg2 -= prg2.floor();
     }
     if (gachaUnlock.level > 0) {
-        let spd = 1 / 300 * getSkillEffect(2);
+        let spd = 900 / 1 * getSkillEffect(2);
         if (diceUnlock.level > 0) spd *= ((dicePoints + 1).log10() + 1).pow(1 / getSkillEffect(17));
         prgGacha += dt * spd;
     }
