@@ -204,10 +204,10 @@ var skillData = [
     {
         name: (amount) => "\\textsf{EX} Extra Supply $c_4$",
         info: (amount) => Localization.getUpgradeIncCustomInfo("\\text{maximum }c_4\\text{ level}", "{eff}"),
-        effect: (level) => level * 2,
+        effect: (level) => level * 5,
         effectText: (level) => "+2 / level",
-        starValue: [1, 2, 3, 5, 7, 11],
-        starCost: new LinearCost(5, 5),
+        starValue: [10, 20, 30, 50, 70, 110],
+        starCost: new LinearCost(0, 1),
     }, 
     {
         name: (amount) => "\\textsf{EX} Variable Bundle",
@@ -1297,7 +1297,7 @@ var tick = (elapsedTime, multiplier) => {
         prg2 -= prg2.floor();
     }
     if (gachaUnlock.level > 0) {
-        let spd = 1 / 300 * getSkillEffect(2);
+        let spd = 30 /  * getSkillEffect(2);
         if (diceUnlock.level > 0) spd *= ((dicePoints + 1).log10() + 1).pow(1 / getSkillEffect(17));
         prgGacha += dt * spd;
     }
