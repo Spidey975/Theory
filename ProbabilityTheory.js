@@ -40,7 +40,7 @@ var getDescription = () => {
         "minigames",
         "multiple game stages",
         "literally a gachapon system",
-        "some die rolling",
+        "some dice rolling",
     ];
 
     let desc = descRoll[seed % descRoll.length] + ". Featuring ";
@@ -58,7 +58,7 @@ var getDescription = () => {
 
     let tips = [
         "The description of this theory will change every day! Or if I decide to update the description generator.",
-        "This theory is getting less and less about the maths behind probablilty and more and more about random things I could think about.",
+        "This theory is getting less and less about the maths behind probability and more and more about random things I could think about.",
         "This theory is compatible with your ad rewards. It isn't complatible with the minigames though, so I decided to make my own ones.",
         "EX skills appear half as often as normal skills, while SP skills, when unlocked, are 50 times rarer than normal skills.",
         "If your tau becomes larger than 1e10000, you can still use the custom theory selection menu to view the full exponent number",
@@ -204,9 +204,9 @@ var skillData = [
     {
         name: (amount) => "\\textsf{EX} Extra Supply $c_4$",
         info: (amount) => Localization.getUpgradeIncCustomInfo("\\text{maximum }c_4\\text{ level}", "{eff}"),
-        effect: (level) => level * 2,
+        effect: (level) => level * 20,
         effectText: (level) => "+2 / level",
-        starValue: [1, 2, 3, 5, 7, 11],
+        starValue: [1, 2, 3, 5, 7, 101],
         starCost: new LinearCost(5, 5),
     }, 
     {
@@ -1297,7 +1297,7 @@ var tick = (elapsedTime, multiplier) => {
         prg2 -= prg2.floor();
     }
     if (gachaUnlock.level > 0) {
-        let spd = 1 / 300 * getSkillEffect(2);
+        let spd = 9 / 1 * getSkillEffect(2);
         if (diceUnlock.level > 0) spd *= ((dicePoints + 1).log10() + 1).pow(1 / getSkillEffect(17));
         prgGacha += dt * spd;
     }
