@@ -68,7 +68,7 @@ var getDescription = () => {
 
     return desc;
 }
-var authors = "ducdat0507";
+var authors = "Spideybot975";
 var version = 4;
 
 var currency, currency2, currency3;
@@ -173,7 +173,7 @@ var skillData = [
         effect: (level) => 1 + level * .05,
         effectText: (level) => "+0.05 / level",
         starValue: [1, 3, 9, 27, 81, 243],
-        starCost: new LinearCost(5, 10),
+        starCost: new LinearCost(1, 2),
     }, 
     {
         name: (amount) => "Raiser $b_2$",
@@ -182,7 +182,7 @@ var skillData = [
         effect: (level) => 1 + level * .05,
         effectText: (level) => "+0.05 / level",
         starValue: [1, 3, 9, 27, 81, 243],
-        starCost: new LinearCost(5, 10),
+        starCost: new LinearCost(1, 2),
     }, 
     {
         name: (amount) => "\\textsf{EX} Public Link $\\rho_2$",
@@ -391,7 +391,7 @@ var init = () => {
     {
         let getDesc = (level) => "c_1=" + (getC1(level) / (r[6] + 1)).toString(0) + (perm3.level > 0 ? "\\times (r_7 + 1)" : "");
         let getInfo = (level) => "c_1=" + getC1(level).toString();
-        c1 = theory.createUpgrade(1, currency, new ExponentialCost(100, Math.log2(2)));
+        c1 = theory.createUpgrade(1, currency, new ExponentialCost(10, Math.log2(2)));
         c1.getDescription = (_) => Utils.getMath(getDesc(c1.level));
         c1.getInfo = (amount) => Utils.getMathTo(getInfo(c1.level), getInfo(c1.level + amount));
     }
