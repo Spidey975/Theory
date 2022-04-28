@@ -383,7 +383,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + (getB1(level) / (r[7] + 1)).toString(0) + (perm4.level > 0 ? "\\times (r_8 + 1)" : "");
         let getInfo = (level) => "b_1=" + getB1(level).toString();
-        b1 = theory.createUpgrade(0, currency, new ExponentialCost(25, Math.log2(1.5)));
+        b1 = theory.createUpgrade(0, currency, new ExponentialCost(25, Math.log2(1)));
         b1.getDescription = (_) => Utils.getMath(getDesc(b1.level));
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount));
     }
