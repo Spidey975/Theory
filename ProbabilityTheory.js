@@ -118,8 +118,8 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\rho_1$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\rho_1\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * .1,
-        effectText: (level) => "+0.1 / level",
+        effect: (level) => 1 + level * 2,
+        effectText: (level) => "+2 / level",
         starValue: [1, 3, 7, 17, 37, 77],
         starCost: new LinearCost(1, 1),
     },
@@ -134,8 +134,8 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\ominus$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\ominus\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * .05,
-        effectText: (level) => "+0.05 / level",
+        effect: (level) => 1 + level * .5,
+        effectText: (level) => "+0.5 / level",
         starValue: [1, 2, 4, 8, 16, 32],
         starCost: new LinearCost(0, 5),
     }, 
@@ -196,16 +196,16 @@ var skillData = [
     {
         name: (amount) => "\\textsf{EX} Tachyon Maker",
         info: (amount) => "Reduces $r_{5~8}$ decaying rate",
-        effect: (level) => 20 + level,
-        effectText: (level) => "Formula: $\\dot{r_i} = \\frac{-r_i}{20 + \\text{level}}$",
+        effect: (level) => 30 + level,
+        effectText: (level) => "Formula: $\\dot{r_i} = \\frac{-r_i}{30 + \\text{level}}$",
         starValue: [1, 2, 3, 5, 7, 11],
-        starCost: new LinearCost(5, 1),
+        starCost: new LinearCost(1, 1),
     }, 
     {
         name: (amount) => "\\textsf{EX} Extra Supply $c_4$",
         info: (amount) => Localization.getUpgradeIncCustomInfo("\\text{maximum }c_4\\text{ level}", "{eff}"),
-        effect: (level) => level * 2,
-        effectText: (level) => "+2 / level",
+        effect: (level) => level * 5,
+        effectText: (level) => "+5 / level",
         starValue: [1, 2, 3, 5, 7, 11],
         starCost: new LinearCost(5, 5),
     }, 
@@ -1297,7 +1297,7 @@ var tick = (elapsedTime, multiplier) => {
         prg2 -= prg2.floor();
     }
     if (gachaUnlock.level > 0) {
-        let spd = 1 / 300 * getSkillEffect(2);
+        let spd = 1 / 3 * getSkillEffect(2);
         if (diceUnlock.level > 0) spd *= ((dicePoints + 1).log10() + 1).pow(1 / getSkillEffect(17));
         prgGacha += dt * spd;
     }
