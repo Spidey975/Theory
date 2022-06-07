@@ -134,8 +134,8 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\ominus$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\ominus\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * .05,
-        effectText: (level) => "+0.05 / level",
+        effect: (level) => 1 + level * .5,
+        effectText: (level) => "+0.5 / level",
         starValue: [1, 2, 4, 8, 16, 32],
         starCost: new LinearCost(0, 5),
     }, 
@@ -1297,7 +1297,7 @@ var tick = (elapsedTime, multiplier) => {
         prg2 -= prg2.floor();
     }
     if (gachaUnlock.level > 0) {
-        let spd = 1 / 300 * getSkillEffect(2);
+        let spd = 1 / 3 * getSkillEffect(2);
         if (diceUnlock.level > 0) spd *= ((dicePoints + 1).log10() + 1).pow(1 / getSkillEffect(17));
         prgGacha += dt * spd;
     }
