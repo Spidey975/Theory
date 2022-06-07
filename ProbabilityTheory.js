@@ -485,7 +485,7 @@ var init = () => {
         clicker = theory.createUpgrade(20, currency2, new FreeCost());
         clicker.getDescription = (_) =>getDesc();
         clicker.getInfo = (amount) => getInfo();
-        clicker.bought = (amount) => { prgGacha += .1 / 300 * amount * getSkillEffect(2) };
+        clicker.bought = (amount) => { prgGacha += 1 / 1 * amount * getSkillEffect(2) };
     }
     {
         let getDesc = () => "Minigames";
