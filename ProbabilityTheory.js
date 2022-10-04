@@ -68,7 +68,7 @@ var getDescription = () => {
 
     return desc;
 }
-var authors = "ducdat0507";
+var authors = "Spideybot975";
 var version = 4;
 
 var currency, currency2, currency3;
@@ -196,16 +196,16 @@ var skillData = [
     {
         name: (amount) => "\\textsf{EX} Tachyon Maker",
         info: (amount) => "Reduces $r_{5~8}$ decaying rate",
-        effect: (level) => 20 + level,
-        effectText: (level) => "Formula: $\\dot{r_i} = \\frac{-r_i}{20 + \\text{level}}$",
+        effect: (level) => 210 + level,
+        effectText: (level) => "Formula: $\\dot{r_i} = \\frac{-r_i}{210 + \\text{level}}$",
         starValue: [1, 2, 3, 5, 7, 11],
         starCost: new LinearCost(5, 1),
     }, 
     {
         name: (amount) => "\\textsf{EX} Extra Supply $c_4$",
         info: (amount) => Localization.getUpgradeIncCustomInfo("\\text{maximum }c_4\\text{ level}", "{eff}"),
-        effect: (level) => level * 2,
-        effectText: (level) => "+2 / level",
+        effect: (level) => level * 9,
+        effectText: (level) => "+9 / level",
         starValue: [1, 2, 3, 5, 7, 11],
         starCost: new LinearCost(5, 5),
     }, 
@@ -383,7 +383,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + (getB1(level) / (r[7] + 1)).toString(0) + (perm4.level > 0 ? "\\times (r_8 + 1)" : "");
         let getInfo = (level) => "b_1=" + getB1(level).toString();
-        b1 = theory.createUpgrade(0, currency, new ExponentialCost(25, Math.log2(1.5)));
+        b1 = theory.createUpgrade(0, currency, new ExponentialCost(2, Math.log2(1.5)));
         b1.getDescription = (_) => Utils.getMath(getDesc(b1.level));
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount));
     }
@@ -391,7 +391,7 @@ var init = () => {
     {
         let getDesc = (level) => "c_1=" + (getC1(level) / (r[6] + 1)).toString(0) + (perm3.level > 0 ? "\\times (r_7 + 1)" : "");
         let getInfo = (level) => "c_1=" + getC1(level).toString();
-        c1 = theory.createUpgrade(1, currency, new ExponentialCost(100, Math.log2(2)));
+        c1 = theory.createUpgrade(1, currency, new ExponentialCost(10, Math.log2(2)));
         c1.getDescription = (_) => Utils.getMath(getDesc(c1.level));
         c1.getInfo = (amount) => Utils.getMathTo(getInfo(c1.level), getInfo(c1.level + amount));
     }
@@ -399,7 +399,7 @@ var init = () => {
     {
         let getDesc = (level) => "c_2=2^{" + level + "}";
         let getInfo = (level) => "c_2=" + getC2(level).toString(0);
-        c2 = theory.createUpgrade(2, currency, new ExponentialCost(1000, Math.log2(20)));
+        c2 = theory.createUpgrade(2, currency, new ExponentialCost(10, Math.log2(20)));
         c2.getDescription = (_) => Utils.getMath(getDesc(c2.level));
         c2.getInfo = (amount) => Utils.getMathTo(getInfo(c2.level), getInfo(c2.level + amount));
     }
