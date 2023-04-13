@@ -68,7 +68,7 @@ var getDescription = () => {
 
     return desc;
 }
-var authors = "ducdat0507", "and Spideybot975";
+var authors = "ducdat0507";
 var version = 4;
 
 var currency, currency2, currency3;
@@ -118,8 +118,8 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\rho_1$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\rho_1\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * 2,
-        effectText: (level) => "+2 / level",
+        effect: (level) => 1 + level * .1,
+        effectText: (level) => "+0.1 / level",
         starValue: [1, 3, 7, 17, 37, 77],
         starCost: new LinearCost(1, 1),
     },
@@ -134,8 +134,8 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\ominus$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\ominus\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * 5,
-        effectText: (level) => "+5 / level",
+        effect: (level) => 1 + level * .05,
+        effectText: (level) => "+0.05 / level",
         starValue: [1, 2, 4, 8, 16, 32],
         starCost: new LinearCost(0, 5),
     }, 
@@ -257,7 +257,7 @@ var skillData = [
     },
     {
         name: (amount) => "\\textsf{SP} Raiser $b_3$",
-        info: (amount) => Localization.getUpgradeIncCustomExpInfo("\\text{base } b_3", "{eff}") + ", based on the first 3 boosters' levels",
+        info: (amount) => Localization.getUpgradeIncCustomExpInfo("\\text{base } b_3", "{eff}") + ", based on the first 2 raisers' levels",
         maxLevel: 15,
         effect: (level) => 1 + (skills[6].level + skills[7].level) * 0.0005 * level,
         effectText: (level) => "+" + ((skills[6].level + skills[7].level) * 0.0005).toFixed(3) + " / level",
@@ -268,8 +268,8 @@ var skillData = [
         name: (amount) => "\\textsf{SP} Amplifier $\\boxdot \\rightarrow \\ominus$",
         info: (amount) => "Improves $\\boxdot$ effect to $\\ominus$",
         maxLevel: 20,
-        effect: (level) => 3 - level * 5,
-        effectText: (level) => "Formula: $\\sqrt[(3 - 5 \\times \\text{level})]{\\log(\\boxdot + 1) + 1}$",
+        effect: (level) => 3 - level * 0.05,
+        effectText: (level) => "Formula: $\\sqrt[(3 - 0.05 \\times \\text{level})]{\\log(\\boxdot + 1) + 1}$",
         starValue: [1, 2, 3, 4, 5, 6],
         starCost: new LinearCost(200, 100),
     },
@@ -314,7 +314,7 @@ var pBoostersBought = 0;
 var perkData = {
     11: {
         name: "Dice Factions",
-        info: "Unlock types for theory lemma and \\textsf{ATK} boosters that are based on them.",
+        info: "Unlocks types for theory lemma and \\textsf{ATK} boosters that are based on them.",
     },
     21: {
         name: "Libraries",
@@ -338,22 +338,22 @@ var perkData = {
     },
     31: {
         name: "The Internet",
-        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multipler per Data Collection upgrade$", "1"),
+        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multiplier per Data Collection upgrade$", "1"),
         req: [21],
     },
     32: {
         name: "Computers",
-        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multipler per Analyzation upgrade$", "1"),
+        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multiplier per Analyzation upgrade$", "1"),
         req: [22],
     },
     33: {
         name: "Citations",
-        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multipler per Evaluation upgrade$", "1"),
+        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multiplier per Evaluation upgrade$", "1"),
         req: [23],
     },
     34: {
         name: "Co-PHDs",
-        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multipler per Revision upgrade$", "1"),
+        info: Localization.getUpgradeIncCustomInfo("$\\textsf{ATK} multiplier per Revision upgrade$", "1"),
         req: [24],
     },
     41: {
@@ -485,7 +485,7 @@ var init = () => {
         clicker = theory.createUpgrade(20, currency2, new FreeCost());
         clicker.getDescription = (_) =>getDesc();
         clicker.getInfo = (amount) => getInfo();
-        clicker.bought = (amount) => { prgGacha += 1 / 1 * amount * getSkillEffect(2) };
+        clicker.bought = (amount) => { prgGacha += .1 / 300 * amount * getSkillEffect(2) };
     }
     {
         let getDesc = () => "Minigames";
@@ -855,7 +855,7 @@ var init = () => {
         rTerms.getDescription = (_) => Localization.getUpgradeUnlockDesc(rTerms.level == 0 ? "r_3" : "r_4");
         rTerms.getInfo = (_) => Localization.getUpgradeUnlockInfo(rTerms.level == 0 ? "r_3" : "r_4");
         rTerms.canBeRefunded = (_) => (cur2Unlock.level == 0);
-        rTerms.boughtOrRefunded = (_) => { theory.invalidatePrimaryEquation(); theory.invalidateQuaternaryValues() };
+        rTerms.boughtOrRefunded = (_) => { theory.invalidatePrimaryEquation(); theory.invalidateQuaternaryValues(); updateAvailability(); };
     }
     {
         cTerms = theory.createMilestoneUpgrade(2, 2);
@@ -912,7 +912,7 @@ var init = () => {
     {
         prg3Speed = theory.createMilestoneUpgrade(9, 6);
         prg3Speed.getDescription = (_) => Localization.getUpgradeIncCustomDesc("\\rho_3\\text{ speed}", "50\\%");
-        prg3Speed.getInfo = (_) => Localization.getUpgradeIncCustomInfo("\\rho_3\\text{speed}", "50\\%");
+        prg3Speed.getInfo = (_) => Localization.getUpgradeIncCustomInfo("\\rho_3\\text{ speed}", "50\\%");
         prg3Speed.canBeRefunded = (_) => (diceUnlock.level == 0 || prg3Speed.level > 3) && (spUnlock.level == 0 || prg3Speed.level > 6);
         prg3Speed.boughtOrRefunded = (_) => { updateAvailability(); };
         prg3Speed.isAvailable = false;
@@ -973,8 +973,8 @@ var init = () => {
     }
     {
         diceBoost = theory.createMilestoneUpgrade(17, 10);
-        diceBoost.getDescription = (_) => Localization.getUpgradeIncCustomDesc("\\boxdot$ gain$", "10\\% \\text{ (multiplicative)}");
-        diceBoost.getInfo = (_) => Localization.getUpgradeIncCustomInfo("\\boxdot$ gain$", "10\\% \\text{ (multiplicative)}");
+        diceBoost.getDescription = (_) => Localization.getUpgradeIncCustomDesc("\\boxdot \\text{ gain}", "10\\% \\text{ (multiplicative)}");
+        diceBoost.getInfo = (_) => Localization.getUpgradeIncCustomInfo("\\boxdot \\text{ gain}", "10\\% \\text{ (multiplicative)}");
         diceBoost.boughtOrRefunded = (_) => { updateAvailability(); };
         diceBoost.isAvailable = false;
     }
@@ -1258,7 +1258,6 @@ var updateAvailability = () => {
 
 var tick = (elapsedTime, multiplier) => {
     let dt = BigNumber.from(elapsedTime * multiplier);
-    diceMasteries = "####################################";
     
     prg += dt * getPrgSpeed(prgSpeed.level) * getSkillEffect(0);
     if (prg >= 1) {
@@ -1297,7 +1296,7 @@ var tick = (elapsedTime, multiplier) => {
         prg2 -= prg2.floor();
     }
     if (gachaUnlock.level > 0) {
-        let spd = 300 * getSkillEffect(2);
+        let spd = 1 / 300 * getSkillEffect(2);
         if (diceUnlock.level > 0) spd *= ((dicePoints + 1).log10() + 1).pow(1 / getSkillEffect(17));
         prgGacha += dt * spd;
     }
@@ -1340,15 +1339,15 @@ var tick = (elapsedTime, multiplier) => {
             let value = baseValue;
             if (diceMasteries[a * 6] == "#") value *= 10;
             if (diceMasteries[a * 6 + 1] == "#" && baseValue == v) {
-                let ve = Math.ceil(Math.random() * d);
+                let ve = Math.ceil(Math.random() * v);
                 value *= ve;
                 while (ve == v) {
-                    ve = Math.ceil(Math.random() * d);
+                    ve = Math.ceil(Math.random() * v);
                     value *= ve;
                 }
             }
             if (diceMasteries[a * 6 + 2] == "#" && baseValue == 1) value *= v * v;
-            if (diceMasteries[a * 6 + 3] == "#") value *= Math.ceil(Math.random(d));
+            if (diceMasteries[a * 6 + 3] == "#") value *= Math.ceil(Math.random() * v);
             if (diceMasteries[a * 6 + 4] == "#" && Math.random() < .2) value *= d;
             if (diceMasteries[a * 6 + 5] == "#") val2 += value;
             val += value * d;
@@ -1612,8 +1611,8 @@ var getPrimaryEquation = () => {
         theory.primaryEquationScale = dicePoints2 > 0 ? .85 : 1;
 
         let result = `
-            ${dicePoints2 > 0 ? `\\dot{\\boxdot} = ${dicePoints2.toNumber().toFixed(0)} \\\\` : ""}
-            \\boxdot = ${dicePoints.toNumber().toFixed(0)} \\\\
+            ${dicePoints2 > 0 ? `\\dot{\\boxdot} = ${dicePoints2} \\\\` : ""}
+            \\boxdot = ${dicePoints} \\\\
             \\boxdot \\leftarrow \\boxdot + \\sum d
         `;
         return result;
@@ -1635,6 +1634,9 @@ var getSecondaryEquation = () => {
     if (stage == 1) rVal = `\\dot{\\rho_2} = ${perm1.level > 0 ? "(r_5 + 1)" : ""} \\sum^{8}_{i=5}{r_i}, \\quad \\dot{r_i} = \\frac{-r_i}{${getSkillEffect(9)}}`;
     else if (stage == 2) {
         let multi = Math.min(gacha, 1 + gachaBulk.level);
+        if(gachaBulk.level == 74 && gacha >= 75000) {
+            multi = 75000;
+        };
         if (multi == 0) rVal = "\\text{Insufficient }\\ominus";
         else if (multi == 1) {
             let surpriseThings = [
@@ -1776,7 +1778,7 @@ var getEquationOverlay = () => ui.createGrid({
                             margin: new Thickness(0, 10), horizontalOptions: LayoutOptions.END, fontSize: 10 
                         }),
                         ui.createLatexLabel({ 
-                            text: () => (dicePoints * ourHealth).toNumber().toFixed(0) + (dicePoints < 1e12 ? " / " + dicePoints.toNumber().toFixed(0) : ""), 
+                            text: () => (dicePoints * ourHealth) + (dicePoints < 1e12 ? " / " + dicePoints : ""), 
                             fontSize: 10,
                             margin: new Thickness(0, 10),
                         }),
@@ -1784,7 +1786,7 @@ var getEquationOverlay = () => ui.createGrid({
                             margin: new Thickness(0, 10), horizontalOptions: LayoutOptions.END, verticalOptions: LayoutOptions.END, fontSize: 10 
                         }),
                         ui.createLatexLabel({ 
-                            text: () => (theirMaxHealth * theirHealth).toNumber().toFixed(0) + (dicePoints < 1e12 ? " / " + theirMaxHealth.toNumber().toFixed(0) : ""), 
+                            text: () => (theirMaxHealth * theirHealth) + (dicePoints < 1e12 ? " / " + theirMaxHealth : ""), 
                             fontSize: 10, 
                             verticalOptions: LayoutOptions.END,
                             margin: () => dicePoints < 1e12 ? new Thickness(0, 7) : new Thickness(0, 10),
@@ -1802,12 +1804,16 @@ var getEquationOverlay = () => ui.createGrid({
         if (stage == 2) {
             if (gacha < 1) return;
             let multi = Math.min(gacha, 1 + gachaBulk.level);
+            let multi2 = 1;
+            if(gachaBulk.level==74 && gacha >= 75000) {
+                multi2 = 1000;
+            }
             let odds = [5, 4, 3, 2, 1, 0].map((x) => Math.pow(5 - gachaValue.level * .2, x));
             for (let n = 0; n < multi; n++) {
                 let osum = odds.reduce((x, y) => x + y);
                 for (let a = 0; a < 6; a++) {
                     let rand = Math.random() < odds[a] / osum ? 1 : 0;
-                    stars[a] += rand * (gachaValue2.level + 1);
+                    stars[a] += rand * (gachaValue2.level + 1) * multi2;
                     if (rand > 0) break;
                     osum -= odds[a];
                 }
@@ -1824,7 +1830,7 @@ var getEquationOverlay = () => ui.createGrid({
                 if (skill.level == 0) skill.level += 1;
                 tSkill = null;
             }
-            gacha -= multi;
+            gacha -= multi*multi2;
             seSeed = Math.floor(Math.random() * 2147483647);
             theory.invalidatePrimaryEquation();
             theory.invalidateSecondaryEquation();
@@ -1840,7 +1846,7 @@ var getEquationOverlay = () => ui.createGrid({
 var isCurrencyVisible = (index) => index < 1 || 
     (index == 1 && cur2Unlock.level > 0) || (index == 2 && cur3Unlock.level > 0);
 var getPublicationMultiplier = (tau) => {
-    let mul = (BigNumber.E.pow((tau + 1).log().pow(.724)) / 500 * getSkillEffect(5)).min(BigNumber.from("1e2000"));
+    let mul = (BigNumber.E.pow((tau + 1).log().pow(.724)) / 500 * getSkillEffect(5));
     if (qTerms3.level > 0) mul *= getPerm7(perm7.level);
     return mul;
 }
@@ -1956,14 +1962,21 @@ var showSkillPopup = (id) => {
             text: "★" + "₁₂₃₄₅₆"[a] + " → +" + skill.starValue[a], 
             row: Math.floor(a / 3),
             column: a % 3, 
-            isEnabled: stars[a] >= 1,
+            opacity: stars[a] >= 1 ? 1 : 0.5,
+            inputTransparent: stars[a] >= 1 ? false : true,
             onClicked: () => {
                 if (stars[a] < 1) return;
                 let max = skillData[id].maxLevel ? Math.ceil((skill.starCost.getSum(skills[id].level, skill.maxLevel) - skillExp[id]) / skill.starValue[a]) : Infinity;
                 max = Math.min(stars[a], max + 1, skillBulk);
                 addSkillExp(id, skill.starValue[a] * max);
                 stars[a] -= max;
-                btns[a].isEnabled = stars[a] >= 1;
+                if (stars[a] >= 1) {
+                    btns[a].opacity = 1;
+                    btns[a].inputTransparent = false;
+                } else {
+                    btns[a].opacity = 0.5;
+                    btns[a].inputTransparent = true;
+                }
                 skillInfoText.text = skills[id].getInfo();
                 levelText.text = "Level: " + skills[id].level;
                 expText.text = (skillExp[id].toFixed(0) + " / " + skill.starCost.getCost(skills[id].level).toString(0));
@@ -2041,8 +2054,8 @@ var showMinigamePopup = () => {
                     "Best: " + hiscores[1] + " → " + hiscoreEffs[1] + "× ρ₂ gain", heightRequest: 60, onClicked: () => {
                     showDominoPuzzlePopup();
                     popup.hide();
-                } }) : ui.createButton({ text: "Locked", heightRequest: 60, isEnabled: false }),
-                ui.createButton({ text: "New minigames coming soon...", isEnabled: false }),
+                } }) : ui.createButton({ text: "Locked", heightRequest: 60, opacity: 0.5, inputTransparent: true }),
+                ui.createButton({ text: "New minigames coming soon...", opacity: 0.5, inputTransparent: true }),
                 ui.createBox({ heightRequest: 1, margin: new Thickness(0, 8) }),
                 ui.createButton({ text: Localization.get("AutoPrestigeClose"), onClicked: () => { popup.hide() } }),
             ]
@@ -2576,7 +2589,7 @@ var showDominoPuzzlePopup = () => {
     let popup = ui.createPopup({
         title: "Domino Puzzle",
         onDisappearing: () => {
-            clicker.level += Math.floor(gameScore ** );
+            clicker.level += Math.floor(gameScore ** 1.1);
             hiscores[1] = Math.max(hiscores[1], gameScore);
             updateScoreEffs();
             gameScore = 0;
@@ -2682,17 +2695,20 @@ var showDiceMasteryPopup = (id) => {
         masterButtons.push(ui.createButton({
             text: masters[a], cornerRadius: 0, heightRequest: 50, margin: new Thickness(0), padding: new Thickness(10, 0),
             fontFamily: FontFamily.CMU_REGULAR,
-            isEnabled: diceMasteries[id * 6 + a] != "#",
+            opacity: diceMasteries[id * 6 + a] != "#" ? 1 : 0.5,
+            inputTransparent: diceMasteries[id * 6 + a] != "#" ? false : true,
             onClicked: () => {
                 let upg = [d4Master, d6Master, d8Master, d10Master, d12Master, d20Master][id];
                 let c = cost.getCost(upg.level);
                 if (currency3.value >= c) {
                     let pos = id * 6 + a;
-                    diceMasteries = diceMasteries.slice(0, pos) + "#" + diceMasteries.slice(pos + 1);
-                    currency3.value -= c;
-                    popup.hide();
-                    tSkill = id;
-                    upg.level += 1;
+                    if (diceMasteries[pos] != "#") {
+                        diceMasteries = diceMasteries.slice(0, pos) + "#" + diceMasteries.slice(pos + 1);
+                        currency3.value -= c;
+                        popup.hide();
+                        tSkill = id;
+                        upg.level += 1;
+                    }
                 }
             }
         }))
@@ -2773,7 +2789,13 @@ var showBoosterPopup = () => {
 
         for (let a = 0; a < 4; a++) {
             pBoosterButtons[a].text = types[a] + " - " + pBoosters[a] + " allocated\n×" + (1 + pBoosters[a] * (perks[31 + a] ? 2 : 1)).toFixed(1) + " ATK boost";
-            pBoosterButtons[a].isEnabled = sum < pBoostersBought;
+            if (sum < pBoostersBought) {
+                pBoosterButtons[a].opacity = 1;
+                pBoosterButtons[a].inputTransparent = false;
+            } else {
+                pBoosterButtons[a].opacity = 0.5;
+                pBoosterButtons[a].inputTransparent = true;
+            }
         }
     }
     updateButtons();
@@ -2791,7 +2813,8 @@ var showBoosterPopup = () => {
                 }),
                 ppButton = ui.createButton({ 
                     text: "Get 1 at " + cost + " publication multiplier",
-                    isEnabled: () => theory.publicationMultiplier >= cost,
+                    opacity: () => theory.publicationMultiplier >= cost ? 1 : 0.5,
+                    inputTransparent: () => theory.publicationMultiplier >= cost ? false : true,
                     onClicked: () => {
                         if (theory.publicationMultiplier >= cost) {
                             pBoostersBought++;
@@ -2863,7 +2886,8 @@ var showPerkPopup = () => {
                             perks[p] = true;
                             perkPoints--;
                             buyButton.text = Localization.get("BuyablesCostBought");
-                            buyButton.isEnabled = false;
+                            buyButton.opacity = 0.5;
+                            buyButton.inputTransparent = true;
                             updateButtons();
                             updateAvailability();
                             theory.invalidateSecondaryEquation();
@@ -2873,13 +2897,21 @@ var showPerkPopup = () => {
 
                 if (perks[p]) {
                     buyButton.text = Localization.get("BuyablesCostBought");
-                    buyButton.isEnabled = false;
+                    buyButton.opacity = 0.5;
+                    buyButton.inputTransparent = true;
                 } else if (pass(p)) {
                     buyButton.text = "1 Perk Point";
-                    buyButton.isEnabled = perkPoints >= 1;
+                    if (perkPoints >= 1) {
+                        buyButton.opacity = 1;
+                        buyButton.inputTransparent = false;
+                    } else {
+                        buyButton.opacity = 0.5;
+                        buyButton.inputTransparent = true;
+                    }
                 } else {
                     buyButton.text = "Requires " + data.req.map(x => perkData[x].name).join(" + ");
-                    buyButton.isEnabled = false;
+                    buyButton.opacity = 0.5;
+                    buyButton.inputTransparent = true;
                 }
 
                 let subPopup = ui.createPopup({
@@ -2912,7 +2944,7 @@ var showPerkPopup = () => {
         for (let p in buttons) {
             let data = perkData[p];
             buttons[p].backgroundColor = perks[p] ? Color.MINIGAME_TILE_LIGHT : Color.MEDIUM_BACKGROUND;
-            buttons[p].textColor = pass(p) ? Color.TEXT : Color.DEACTIVATED_UPGRADE;
+            buttons[p].opacity = pass(p) ? 1 : 0.5;
         }
     }
     updateButtons();
@@ -2929,16 +2961,17 @@ var showPerkPopup = () => {
                     margin: new Thickness(0, 5, 0, 5),
                 }),
                 ppButton = ui.createButton({ 
-                    text: "Buy 1 for " + cost + " ρ₃", 
-                    isEnabled: () => currency3.value >= cost,
+                    text: perkPointsBought < 11 ? "Buy 1 for " + cost + " ρ₃" : "All perk points bought!",
+                    opacity: () => currency3.value >= cost && perkPointsBought < 11 ? 1 : 0.5,
+                    inputTransparent: () => currency3.value >= cost && perkPointsBought < 11 ? false : true,
                     onClicked: () => { 
-                        if (currency3.value >= cost) {
+                        if (currency3.value >= cost && perkPointsBought < 11) {
                             currency3.value -= cost;
                             perkPoints++;
                             perkPointsBought++;
                             cost = costFunc(perkPointsBought);
                             ppText.text = "You have " + perkPoints + " perk points.";
-                            ppButton.text = "Buy 1 for " + cost + " ρ₃";
+                            ppButton.text = perkPointsBought < 11 ? "Buy 1 for " + cost + " ρ₃" : "All perk points bought!";
                             updateAvailability();
                             theory.invalidateSecondaryEquation();
                         }
