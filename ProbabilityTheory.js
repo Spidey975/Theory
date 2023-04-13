@@ -68,7 +68,7 @@ var getDescription = () => {
 
     return desc;
 }
-var authors = "ducdat0507";
+var authors = "ducdat0507", "and Spideybot975";
 var version = 4;
 
 var currency, currency2, currency3;
@@ -268,8 +268,8 @@ var skillData = [
         name: (amount) => "\\textsf{SP} Amplifier $\\boxdot \\rightarrow \\ominus$",
         info: (amount) => "Improves $\\boxdot$ effect to $\\ominus$",
         maxLevel: 20,
-        effect: (level) => 3 - level * 0.05,
-        effectText: (level) => "Formula: $\\sqrt[(3 - 0.05 \\times \\text{level})]{\\log(\\boxdot + 1) + 1}$",
+        effect: (level) => 3 - level * 5,
+        effectText: (level) => "Formula: $\\sqrt[(3 - 5 \\times \\text{level})]{\\log(\\boxdot + 1) + 1}$",
         starValue: [1, 2, 3, 4, 5, 6],
         starCost: new LinearCost(200, 100),
     },
@@ -1297,7 +1297,7 @@ var tick = (elapsedTime, multiplier) => {
         prg2 -= prg2.floor();
     }
     if (gachaUnlock.level > 0) {
-        let spd = 1 / 300 * getSkillEffect(2);
+        let spd = 300 * getSkillEffect(2);
         if (diceUnlock.level > 0) spd *= ((dicePoints + 1).log10() + 1).pow(1 / getSkillEffect(17));
         prgGacha += dt * spd;
     }
