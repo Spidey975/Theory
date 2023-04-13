@@ -1,4 +1,4 @@
-﻿/*------------------------------------------*
+/*------------------------------------------*
 |            Probability  Theory            |
 |               by ducdat0507               |
 |              "i give up lmao"             |
@@ -2576,7 +2576,7 @@ var showDominoPuzzlePopup = () => {
     let popup = ui.createPopup({
         title: "Domino Puzzle",
         onDisappearing: () => {
-            clicker.level += Math.floor(gameScore ** 1.1);
+            clicker.level += Math.floor(gameScore ** );
             hiscores[1] = Math.max(hiscores[1], gameScore);
             updateScoreEffs();
             gameScore = 0;
