@@ -118,8 +118,8 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\rho_1$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\rho_1\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * .1,
-        effectText: (level) => "+0.1 / level",
+        effect: (level) => 1 + level * 2,
+        effectText: (level) => "+2 / level",
         starValue: [1, 3, 7, 17, 37, 77],
         starCost: new LinearCost(1, 1),
     },
@@ -134,8 +134,8 @@ var skillData = [
     {
         name: (amount) => "Accelerator $\\ominus$",
         info: (amount) => Localization.getUpgradeMultCustomInfo("\\ominus\\text{ speed}", "{eff}"),
-        effect: (level) => 1 + level * .05,
-        effectText: (level) => "+0.05 / level",
+        effect: (level) => 1 + level * 5,
+        effectText: (level) => "+5 / level",
         starValue: [1, 2, 4, 8, 16, 32],
         starCost: new LinearCost(0, 5),
     }, 
