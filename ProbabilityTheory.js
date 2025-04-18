@@ -1846,14 +1846,14 @@ var getEquationOverlay = () => ui.createGrid({
 var isCurrencyVisible = (index) => index < 1 || 
     (index == 1 && cur2Unlock.level > 0) || (index == 2 && cur3Unlock.level > 0);
 var getPublicationMultiplier = (tau) => {
-    let mul = (BigNumber.E.pow((tau + 1).log().pow(.724)) / 500 * getSkillEffect(5));
+    let mul = (BigNumber.E.pow((tau + 1).log().pow(1.5)) / 500 * getSkillEffect(5));
     if (qTerms3.level > 0) mul *= getPerm7(perm7.level);
     return mul;
 }
 var getPublicationMultiplierFormula = (symbol) => {
     let mul = getSkillEffect(5);
     if (qTerms3.level > 0) mul *= getPerm7(perm7.level);
-    return "\\frac{e^{\\ln(" + symbol + " + 1)^{0.724}}}{500}" + (mul > 1 ? "\\times" + mul.toString(0) : "");
+    return "\\frac{e^{\\ln(" + symbol + " + 1)^{1.5}}}{500}" + (mul > 1 ? "\\times" + mul.toString(0) : "");
 }
 var getTau = () => currency.value;
 var getCompletion = () => {
