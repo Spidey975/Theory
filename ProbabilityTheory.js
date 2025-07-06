@@ -259,8 +259,8 @@ var skillData = [
         name: (amount) => "\\textsf{SP} Raiser $b_3$",
         info: (amount) => Localization.getUpgradeIncCustomExpInfo("\\text{base } b_3", "{eff}") + ", based on the first 2 raisers' levels",
         maxLevel: 15,
-        effect: (level) => 1 + (skills[6].level + skills[7].level) * 0.0005 * level,
-        effectText: (level) => "+" + ((skills[6].level + skills[7].level) * 0.0005).toFixed(3) + " / level",
+        effect: (level) => 1 + (skills[6].level + skills[7].level) * 0.5 * level,
+        effectText: (level) => "+" + ((skills[6].level + skills[7].level) * 0.5).toFixed(3) + " / level",
         starValue: [1, 2, 3, 4, 5, 6],
         starCost: new LinearCost(225, 75),
     },
@@ -286,8 +286,8 @@ var skillData = [
         name: (amount) => "\\textsf{SP} Public Link $\\rho_3$",
         info: (amount) => "Publication multiplier affects $\\rho_3$ at {eff}\\%{} efficiency",
         maxLevel: 20,
-        effect: (level) => level * .05,
-        effectText: (level) => "+0.05\\%{} / level",
+        effect: (level) => level * .5,
+        effectText: (level) => "+0.5\\%{} / level",
         starValue: [1, 2, 3, 4, 5, 6],
         starCost: new StepwiseCost(new ExponentialCost(400, 1), 3),
     }, 
@@ -1846,14 +1846,14 @@ var getEquationOverlay = () => ui.createGrid({
 var isCurrencyVisible = (index) => index < 1 || 
     (index == 1 && cur2Unlock.level > 0) || (index == 2 && cur3Unlock.level > 0);
 var getPublicationMultiplier = (tau) => {
-    let mul = (BigNumber.E.pow((tau + 1).log().pow(1.5)) / 500 * getSkillEffect(5));
+    let mul = (BigNumber.E.pow((tau + 1).log().pow(1.75)) / 1.01 * getSkillEffect(5));
     if (qTerms3.level > 0) mul *= getPerm7(perm7.level);
     return mul;
 }
 var getPublicationMultiplierFormula = (symbol) => {
     let mul = getSkillEffect(5);
     if (qTerms3.level > 0) mul *= getPerm7(perm7.level);
-    return "\\frac{e^{\\ln(" + symbol + " + 1)^{1.5}}}{500}" + (mul > 1 ? "\\times" + mul.toString(0) : "");
+    return "\\frac{e^{\\ln(" + symbol + " + 1)^{1.75}}}{1.01}" + (mul > 1 ? "\\times" + mul.toString(0) : "");
 }
 var getTau = () => currency.value;
 var getCompletion = () => {
